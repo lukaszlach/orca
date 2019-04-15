@@ -1,0 +1,7 @@
+.idea
+docker-compose.yml
+Dockerfile
+Dockerfile.*
+.env
+orca
+PRIVATE.md
