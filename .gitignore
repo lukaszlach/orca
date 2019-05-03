@@ -5,3 +5,6 @@ Dockerfile.*
 .env
 orca
 PRIVATE.md
+entrypoint.sh
+orca.conf.tpl
+.dockerignore

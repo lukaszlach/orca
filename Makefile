@@ -6,3 +6,6 @@ run:
 
 logs:
 	tail -F /tmp/orca.log
+
+test:
+	curl -v 0:8080

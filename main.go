@@ -84,6 +84,9 @@ func main() {
 	// trigger a warning when no MySQL connection details are available
 	if os.Getenv("ORCA_MYSQL") == "" {
 		fileLog("Warning: Failed to connect to MySQL (ORCA_MYSQL empty or not set)", OutputLog)
+	} else
+	if _, err := os.Stat("/etc/orca.conf"); os.IsNotExist(err) {
+		fileLog("Warning: /etc/orca.conf not found, set the \"orca_cache\" setting to enable local caching", OutputLog)
 	}
 	// run HTTP server loop
 	http.ListenAndServe(":8080", nil)
