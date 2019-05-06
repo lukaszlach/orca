@@ -38,9 +38,10 @@ func main() {
 		// log the request
 		fileLog(r.Method+" /", OutputLog)
 		// cache the response output (mock)
-		file, err := ioutil.TempFile("/var/lib/orca", "orca")
+		os.MkdirAll("/tmp/orca", 0777);
+		file, err := ioutil.TempFile("/tmp/orca", "orca")
 		if err != nil {
-			panic(err)
+			//panic(err)
 		} else {
 			bigBuff := make([]byte, 1000*1000)
 			ioutil.WriteFile(file.Name(), bigBuff, 0666)

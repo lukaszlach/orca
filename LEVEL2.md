@@ -162,9 +162,9 @@ CMD ["su-exec", "orca", "sh", "/start.sh"]
 EXPOSE 8080/tcp
 RUN ln -sf /dev/stdout /tmp/orca.log && \
     ln -sf /dev/stderr /tmp/orca-error.log && \
-    mkdir -p /var/lib/orca && \
-    chown orca:orca /var/lib/orca
-VOLUME /var/lib/orca
+    mkdir -p /tmp/orca && \
+    chown orca:orca /tmp/orca
+VOLUME /tmp/orca
 ```
 
 </p>

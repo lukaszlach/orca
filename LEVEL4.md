@@ -72,13 +72,13 @@ docker run -d \
 ```bash
 docker network create test
 docker run -it --name ping \
-	--net test \
-	--label "com.docker-tc.enabled=1" \
-	--label "com.docker-tc.delay=100ms" \
-	--label "com.docker-tc.loss=50%" \
-	--label "com.docker-tc.duplicate=50%" \
-	busybox \
-	ping google.com
+    --net test \
+    --label "com.docker-tc.enabled=1" \
+    --label "com.docker-tc.delay=100ms" \
+    --label "com.docker-tc.loss=50%" \
+    --label "com.docker-tc.duplicate=50%" \
+    busybox \
+    ping google.com
 ```
 
 </p>

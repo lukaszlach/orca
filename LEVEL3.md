@@ -133,11 +133,11 @@ CMD ["su-exec", "orca", "sh", "/start.sh"]
 EXPOSE 8080/tcp
 RUN ln -sf /dev/stdout /tmp/orca.log && \
     ln -sf /dev/stderr /tmp/orca-error.log && \
-    mkdir -p /var/lib/orca && \
-    chown orca:orca /var/lib/orca
-VOLUME /var/lib/orca
+    mkdir -p /tmp/orca && \
+    chown orca:orca /tmp/orca
+VOLUME /tmp/orca
 RUN apk --no-cache add gettext
-COPY entrypoint.sh /
+COPY entrypoint.sh orca.conf.tpl /
 ENTRYPOINT ["sh", "/entrypoint.sh"]
 ```
 
@@ -248,14 +248,14 @@ FROM alpine:3.9
 ENTRYPOINT ["sh", "/entrypoint.sh"]
 CMD ["su-exec", "orca", "sh", "/start.sh"]
 EXPOSE 8080/tcp
-VOLUME /var/lib/orca
+VOLUME /tmp/orca
 RUN addgroup -g 10000 -S orca && \
     adduser  -u 10000 -S orca -G orca -H -s /bin/false && \
     apk --no-cache add su-exec gettext && \
     ln -sf /dev/stdout /tmp/orca.log && \
     ln -sf /dev/stderr /tmp/orca-error.log && \
-    mkdir -p /var/lib/orca && \
-    chown orca:orca /var/lib/orca
+    mkdir -p /tmp/orca && \
+    chown orca:orca /tmp/orca
 COPY --from=build --chown=orca:orca \
      /orca/orca /orca/bin/start.sh /orca/orca.conf.tpl /orca/entrypoint.sh /
 ```
