@@ -17,7 +17,7 @@ This script will prepare your machine for the workshop.
 It will not install anything, just check Docker and Compose versions and dependent
 tools, also pull required Docker images.
 
-Remember that you can always first download the script, review it and run locally:
+Remember that you can always download the script first, review it and run locally:
 $ curl -sSfL https://lach.dev/orca-sh -o orca.sh
 $ bash orca.sh
 
@@ -66,6 +66,7 @@ docker_pull() {
     )
 }
 docker_pull golang:1.12-alpine
+docker_pull alpine:3.9
 docker_pull mysql:5.7
 docker_pull bretfisher/netshoot
 docker_pull tecnativa/tcp-proxy
@@ -76,6 +77,9 @@ docker_pull moncho/dry
 docker_pull portainer/portainer
 docker_pull hadolint/hadolint
 docker_pull lukaszlach/docker-tc
+docker_pull gitlab/gitlab-ce:latest
+docker_pull gitlab/gitlab-runner:alpine
+docker_pull docker:stable
 #docker_pull lukaszlach/kali-desktop:xfce-top10
 log_success "Pulled all Docker images"
 

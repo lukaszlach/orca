@@ -1,10 +1,2 @@
 .idea
-docker-compose.yml
-Dockerfile
-Dockerfile.*
-.env
-orca
 PRIVATE.md
-entrypoint.sh
-orca.conf.tpl
-.dockerignore

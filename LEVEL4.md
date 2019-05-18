@@ -1,94 +1,82 @@
 # Orca - Level 4
 
-## Challenge: Orchestrate
+## Challenge: Automate
 
-<details><summary>Initialize a one-node Swarm</summary>
+<details><summary>Clone the project from GitHub</summary>
 <p>
 
-```bash
-docker swarm init
-```
-
-in case you are asked to pick a specific network interface:
+https://github.com/lukaszlach/orca-gitlab
 
 ```bash
-ifconfig
-
-# for example if eth1 was picked
-docker swarm init --advertise-addr eth1
+git clone https://github.com/lukaszlach/orca-gitlab.git
+cd orca-gitlab/
 ```
 
 </p>
 </details>
 
-<details><summary>Deploy a Docker Swarm service</summary>
+<details><summary>.gitlab-ci.yml</summary>
 <p>
 
-```bash
-docker-compose stop
-docker stack deploy -c docker-compose.yml orca
-```
+```yaml
+before_script:
+  - docker login registry.gitlab.local:8000 -u root -p passw0rd
 
-```bash
-docker service ls
-docker service ps orca_orca
-```
+stages:
+  - build
 
-```bash
-docker service scale orca_orca=3
-```
-
-```bash
-docker stack rm orca
+build:
+  stage: build
+  script:
+    - docker build --no-cache -t orca .
 ```
 
 </p>
 </details>
 
-## Challenge: Prepare for chaos
+## Challenge: Release
 
-<details><summary>Run Docker Traffic Control daemon</summary>
+<details><summary>.gitlab-ci.yml - Binary</summary>
 <p>
 
-https://github.com/lukaszlach/docker-tc
+```yaml
+before_script:
+  - docker login registry.gitlab.local:8000 -u root -p passw0rd
 
-```bash
-docker run -d \
-    --name docker-tc \
-    --network host \
-    --cap-add NET_ADMIN \
-    --restart always \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /var/docker-tc:/var/docker-tc \
-    lukaszlach/docker-tc
+stages:
+  - build
+
+build:
+  stage: build
+  artifacts:
+    untracked: true
+  script:
+    - docker build --no-cache -t orca .
+    - docker cp $(docker create orca):/orca . && docker rm -f $(docker ps -lq)
 ```
 
 </p>
 </details>
 
-<details><summary>Run ping command</summary>
+<details><summary>.gitlab-ci.yml - Docker image</summary>
 <p>
 
-```bash
-docker network create test
-docker run -it --name ping \
-    --net test \
-    --label "com.docker-tc.enabled=1" \
-    --label "com.docker-tc.delay=100ms" \
-    --label "com.docker-tc.loss=50%" \
-    --label "com.docker-tc.duplicate=50%" \
-    busybox \
-    ping google.com
-```
+```yaml
+before_script:
+  - docker login registry.gitlab.local:8000 -u root -p passw0rd
 
-</p>
-</details>
+stages:
+  - build
 
-<details><summary>Alter traffic control rules</summary>
-<p>
-
-```bash
-curl -d'delay=300ms' localhost:4080/ping
+build:
+  stage: build
+  artifacts:
+    untracked: true
+  script:
+    - docker build --no-cache -t orca .
+    - docker cp $(docker create orca):/orca . && docker rm -f $(docker ps -lq)
+    - docker tag orca registry.gitlab.local:8000/root/orca:$CI_JOB_ID
+    - docker push registry.gitlab.local:8000/root/orca:$CI_JOB_ID
 ```
 
 </p>
