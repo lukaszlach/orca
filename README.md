@@ -64,10 +64,10 @@ $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
 
 ## Workshop
 
-* [Level 1](LEVEL1.md)
-* [Level 2](LEVEL2.md)
-* [Level 3](LEVEL3.md)
-* [Level 4](LEVEL4.md)
-* [Level 5](LEVEL5.md)
-* [Level 6](LEVEL6.md)
-* [Level 7](LEVEL7.md)
+* [Level 1](docs/LEVEL1.md)
+* [Level 2](docs/LEVEL2.md)
+* [Level 3](docs/LEVEL3.md)
+* [Level 4](docs/LEVEL4.md)
+* [Level 5](docs/LEVEL5.md)
+* [Level 6](docs/LEVEL6.md)
+* [Level 7](docs/LEVEL7.md)
