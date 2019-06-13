@@ -2,14 +2,58 @@
 
 ## Challenge: Automate
 
-<details><summary>Clone the project from GitHub</summary>
+<details><summary>Run GitLab</summary>
 <p>
 
-https://github.com/lukaszlach/orca-gitlab
+Run on local computer.
 
 ```bash
-git clone https://github.com/lukaszlach/orca-gitlab.git
-cd orca-gitlab/
+docker network create orca-gitlab-network
+docker run -d --name gitlab \
+    --net orca-gitlab-network -p 8000:8000 \
+    --network-alias gitlab.local.cmd.cat \
+    --network-alias registry.local.cmd.cat \
+    -e "GITLAB_DOMAIN=local.cmd.cat" \
+    lukaszlach/orca-gitlab
+```
+
+Run on a workshop VPS server (replace `XX` with your server number).
+
+**Notice**: Change `local` to `vpsXX` in all further code snippets if needed.
+
+```bash
+docker network create orca-gitlab-network
+docker run -d --name gitlab \
+    --net orca-gitlab-network -p 8000:8000 \
+    --network-alias gitlab.vpsXX.cmd.cat \
+    --network-alias registry.vpsXX.cmd.cat \
+    -e "GITLAB_DOMAIN=vpsXX.cmd.cat" \
+    lukaszlach/orca-gitlab
+```
+
+
+</p>
+</details>
+
+<details><summary>Run GitLab Runner</summary>
+<p>
+
+```bash
+docker run -d --name gitlab-runner \
+    --net orca-gitlab-network \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    lukaszlach/orca-gitlab-runner
+```
+
+</p>
+</details>
+
+
+<details><summary>Add git remote pointing local GitLab</summary>
+<p>
+
+```bash
+git remote add local http://gitlab.local.cmd.cat:8000/root/orca.git
 ```
 
 </p>
@@ -20,7 +64,7 @@ cd orca-gitlab/
 
 ```yaml
 before_script:
-  - docker login registry.gitlab.local:8000 -u root -p passw0rd
+  - docker login registry.local.cmd.cat:8000 -u root -p passw0rd
 
 stages:
   - build
@@ -41,7 +85,7 @@ build:
 
 ```yaml
 before_script:
-  - docker login registry.gitlab.local:8000 -u root -p passw0rd
+  - docker login registry.local.cmd.cat:8000 -u root -p passw0rd
 
 stages:
   - build
@@ -63,7 +107,7 @@ build:
 
 ```yaml
 before_script:
-  - docker login registry.gitlab.local:8000 -u root -p passw0rd
+  - docker login registry.local.cmd.cat:8000 -u root -p passw0rd
 
 stages:
   - build
@@ -75,8 +119,8 @@ build:
   script:
     - docker build --no-cache -t orca .
     - docker cp $(docker create orca):/orca . && docker rm -f $(docker ps -lq)
-    - docker tag orca registry.gitlab.local:8000/root/orca:$CI_JOB_ID
-    - docker push registry.gitlab.local:8000/root/orca:$CI_JOB_ID
+    - docker tag orca registry.local.cmd.cat:8000/root/orca:$CI_JOB_ID
+    - docker push registry.local.cmd.cat:8000/root/orca:$CI_JOB_ID
 ```
 
 </p>

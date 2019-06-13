@@ -5,8 +5,9 @@
 
 ```bash
 git clone https://github.com/lukaszlach/orca
-cd orca
-bash workshop-prepare.sh
+cd orca/
+bash workshop.sh
+bash editor.sh
 ```
 
 ## Introduction
@@ -68,3 +69,5 @@ $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
 * [Level 3](LEVEL3.md)
 * [Level 4](LEVEL4.md)
 * [Level 5](LEVEL5.md)
+* [Level 6](LEVEL6.md)
+* [Level 7](LEVEL7.md)

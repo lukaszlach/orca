@@ -106,6 +106,20 @@ RUN ln -sf /dev/stdout /tmp/orca.log && \
 </p>
 </details>
 
+<details><summary>Inspect logging details</summary>
+<p>
+
+```bash
+docker inspect --format '{{.HostConfig.LogConfig.Type}}' orca
+```
+
+```bash
+docker inspect --format='{{.LogPath}}' orca
+```
+
+</p>
+</details>
+
 ## Challenge: Configuration
 
 <details><summary>docker-compose.yml</summary>
@@ -170,12 +184,12 @@ VOLUME /tmp/orca
 </p>
 </details>
 
-<details><summary>List the container mounts</summary>
+<details><summary>List container mounts</summary>
 <p>
 
 ```bash
 docker inspect \
-    --format '{{ json .Mounts }}' \
+    --format '{{json .Mounts}}' \
     orca
 ```
 

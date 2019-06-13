@@ -37,6 +37,34 @@ CMD ["sh", "/start.sh"]
 </p>
 </details>
 
+<details><summary>dive</summary>
+
+https://github.com/wagoodman/dive
+
+<p>
+
+```Dockerfile
+docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    wagoodman/dive orca
+```
+
+</p>
+</details>
+
+<details><summary>Composerize</summary>
+<p>
+
+https://github.com/magicmark/composerize
+
+```Dockerfile
+docker run lukaszlach/composerize \
+    docker run --name orca orca
+```
+
+</p>
+</details>
+
 <details><summary>docker-compose.yml</summary>
 <p>
 

@@ -37,6 +37,17 @@ services:
 </p>
 </details>
 
+<details><summary>strace</summary>
+<p>
+
+```bash
+docker run --pid container:orca --cap-add SYS_PTRACE \
+    lukaszlach/strace -s 1024 -f -p 1
+```
+
+</p>
+</details>
+
 <details><summary>Kali Linux</summary>
 <p>
 
@@ -165,6 +176,17 @@ echo 'Hello {{ .NAME | title }}' | \
 </p>
 </details>
 
+<details><summary>Override the entrypoint</summary>
+<p>
+
+```bash
+docker run --rm -it --name orca-shell \
+    --entrypoint '' orca sh
+```
+
+</p>
+</details>
+
 ## Challenge: Inspect
 
 <details><summary>Inspect a single container</summary>
@@ -196,6 +218,37 @@ docker inspect -f \
     '{{if ne 0 .State.ExitCode}}{{.Name}} {{.State.ExitCode}}{{end}}' \
     $(docker ps -aq) \
     | grep .
+```
+
+</p>
+</details>
+
+<details><summary>Inspect container without Docker client</summary>
+<p>
+
+```bash
+curl -sSf --unix-socket /var/run/docker.sock \
+    0/containers/orca/json
+```
+
+</p>
+</details>
+
+<details><summary>Container PID mode</summary>
+<p>
+
+https://hub.docker.com/r/lukaszlach/htop
+
+```bash
+docker run -it --pid container:orca \
+    lukaszlach/htop
+```
+
+https://hub.docker.com/r/lukaszlach/strace
+
+```bash
+docker run --pid container:orca --cap-add SYS_PTRACE \
+    lukaszlach/strace -s 1024 -f -p 1
 ```
 
 </p>
@@ -248,7 +301,6 @@ FROM alpine:3.9
 ENTRYPOINT ["sh", "/entrypoint.sh"]
 CMD ["su-exec", "orca", "sh", "/start.sh"]
 EXPOSE 8080/tcp
-VOLUME /tmp/orca
 RUN addgroup -g 10000 -S orca && \
     adduser  -u 10000 -S orca -G orca -H -s /bin/false && \
     apk --no-cache add su-exec gettext && \
@@ -256,6 +308,7 @@ RUN addgroup -g 10000 -S orca && \
     ln -sf /dev/stderr /tmp/orca-error.log && \
     mkdir -p /tmp/orca && \
     chown orca:orca /tmp/orca
+VOLUME /tmp/orca
 COPY --from=build --chown=orca:orca \
      /orca/orca /orca/bin/start.sh /orca/orca.conf.tpl /orca/entrypoint.sh /
 ```

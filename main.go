@@ -34,6 +34,11 @@ func fileLog(line string, path string) error {
 }
 
 func main() {
+    if os.Args[1] == "version" {
+        fmt.Println("Orca 1.0")
+        os.Exit(0)
+        return
+    }
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// log the request
 		fileLog(r.Method+" /", OutputLog)
