@@ -39,20 +39,24 @@ banner
 sleep 10s
 
 set -e
-log "Pulling lukaszlach/orca-editor"
-docker pull lukaszlach/orca-editor &>/dev/null
-log "Running lukaszlach/orca-editor"
+log "Pulling lukaszlach/code-container"
+docker pull lukaszlach/code-container &>/dev/null
+log "Running lukaszlach/code-container"
 docker rm -f orca-editor &>/dev/null || true
-EDITOR_PORT=9000
 docker run -d \
     --name orca-editor \
-    --hostname workshop \
-    -p "$EDITOR_PORT":8443 \
-    -v "${PROJECT_PWD}:/home/coder/project" \
+    --hostname orca \
+    --pid host \
+    --net host \
+    -e EDITOR_UID -e EDITOR_GID \
+    -e EDITOR_PASSWORD \
+    -e "EDITOR_BANNER=Orca" \
+    -e "EDITOR_PORT=${EDITOR_PORT:-8443}" \
+    -v "${PROJECT_PWD}:/files" \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    lukaszlach/orca-editor
+    lukaszlach/code-container
 
 log_success "Editor is running"
 log "Visit http://localhost:$EDITOR_PORT/ in your web browser"
-log "All your changes will be persisted under $PWD"
+log "All your changes will be persisted under $PROJECT_PWD"
 exit 0

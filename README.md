@@ -6,8 +6,6 @@
 ```bash
 git clone https://github.com/lukaszlach/orca
 cd orca/
-bash workshop.sh
-bash editor.sh
 ```
 
 ## Introduction

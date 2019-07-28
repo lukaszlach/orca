@@ -208,6 +208,8 @@ Makefile
 docker-compose.yml
 .env
 *.md
+docs
+.workshop
 ```
 
 </p>

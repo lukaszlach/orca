@@ -83,24 +83,12 @@ docker_pull hadolint/hadolint
 docker_pull wagoodman/dive
 docker_pull lukaszlach/composerize
 docker_pull lukaszlach/docker-tc
-#docker_pull gitlab/gitlab-ce:latest
 docker_pull lukaszlach/orca-gitlab
-#docker_pull gitlab/gitlab-runner:alpine
 docker_pull lukaszlach/orca-gitlab-runner
 docker_pull docker:stable
 docker_pull nginx:1.15
 #docker_pull lukaszlach/kali-desktop:xfce-top10
 log_success "Pulled all Docker images"
-
-log "Checking network connectivity"
-TMP_CONTAINER_NAME=orca_nginx
-docker rm -f "$TMP_CONTAINER_NAME" &>/dev/null || true
-docker run -d --name "$TMP_CONTAINER_NAME" -p 8080:80 nginx:1.15 &>/dev/null
-#sleep 0.5
-#curl -sSf -m 3 -o /dev/null localhost:8080
-#curl -sSf -m 3 -o /dev/null localtest.me:8080
-docker rm -f "$TMP_CONTAINER_NAME" &>/dev/null
-log_success "Network check successful"
 
 printf "\n"
 log_success "You are now fully prepared for the workshop"
