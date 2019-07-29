@@ -1,0 +1,37 @@
+#!/usr/bin/env pwsh
+#Set-PSDebug -Trace 1
+$ErrorActionPreference = 'Stop'
+
+Write-Host @"
+ ____  ____  ____  ____    _____  _     _      _      _____ _
+/  _ \/  __\/   _\/  _ \  /__ __\/ \ /\/ \  /|/ \  /|/  __// \
+| / \||  \/||  /  | / \|    / \  | | ||| |\ ||| |\ |||  \  | |
+| \_/||    /|  \_ | |-||    | |  | \_/|| | \||| | \|||  /_ | |_/\
+\____/\_/\_\\____/\_/ \|    \_/  \____/\_/  \|\_/  \|\____\\____/
+
+Docker workshop | Tunnel
+Łukasz Lach <llach@llach.pl>
+https://lach.dev/orca
+
+This script will run a local SSH tunnel for all ports required to work on this workshop.
+In case the network firewall is heavily blocked, with this script one can bypass these
+problems and tunnel everything through port 80.
+
+Remember that you can always download the script first, review it and run locally:
+PS> Invoke-WebRequest -Uri "https://lach.dev/orca-tunnel.ps" -OutFile "orca-tunnel.ps"
+PS> PowerShell.exe -File .\orca-tunnel.ps
+
+"@
+# Read the VPS ID
+$VPS_ID = Read-Host -Prompt 'Enter your VPS ID'
+# Run the SSH tunnel
+Write-Host "Pulling lukaszlach/orca-tunnel"
+docker pull -q lukaszlach/orca-tunnel
+Write-Host "Running lukaszlach/orca-tunnel through vps$VPS_ID.cmd.cat"
+$ErrorActionPreference = 'SilentlyContinue'
+docker rm -f orca-tunnel *>$null
+$ErrorActionPreference = 'Stop'
+docker run -d --name orca-tunnel --restart always -p 4040:4040 -p 5000:5000 -p 8000:8000 -p 8080:8080 -p 8081:8081 -p 8443:8443 -p 9000:9000 -p 10080:10080 -e SSH_USER=d -e SSH_PASSWORD=docker -e SSH_PORT=80 lukaszlach/orca-tunnel "vps$VPS_ID.cmd.cat" 4040 5000 8000 8080 8081 8443 9000 10080
+
+Write-Host ""
+Write-Host "Orca Tunnel up and running"

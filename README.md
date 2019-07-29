@@ -60,6 +60,21 @@ $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
 </p>
 </details>
 
+<details><summary>Start Orca Tunnel</summary>
+<p>
+
+```bash
+# Linux and Mac
+# replace with your VPS_ID
+bash <(curl -sSfL lach.dev/orca-tunnel) VPS_ID
+
+# Windows
+iex ((New-Object System.Net.WebClient).DownloadString('https://lach.dev/orca-tunnel.ps'))
+```
+
+</p>
+</details>
+
 ## Workshop
 
 ### Intermediate

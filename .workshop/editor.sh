@@ -2,10 +2,6 @@
 log()         { printf "\e[37m[Notice]\e[39m $@\n"; }
 log_error()   { printf "\e[91m[Error]\e[39m $@\n"; }
 log_success() { printf "\e[92m[Success]\e[39m $@\n"; }
-if [ ! -n "$BASH" ]; then
-    log_error "Invalid shell, run this script with bash"
-    exit 1
-fi
 cat <<'banner'
  ____  ____  ____  ____    _____ ____  _  _____  ____  ____ 
 /  _ \/  __\/   _\/  _ \  /  __//  _ \/ \/__ __\/  _ \/  __\
