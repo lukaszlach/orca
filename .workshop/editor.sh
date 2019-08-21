@@ -51,6 +51,7 @@ docker run -d \
     -v "${PROJECT_PWD}:/files" \
     -v /var/run/docker.sock:/var/run/docker.sock \
     lukaszlach/code-container
+#-v /var/lib/docker:/var/lib/docker:ro \
 
 log_success "Editor is running"
 log "Visit http://localhost:$EDITOR_PORT/ in your web browser"

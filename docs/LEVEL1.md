@@ -37,7 +37,17 @@ CMD ["sh", "/start.sh"]
 </p>
 </details>
 
-<details><summary>dive</summary>
+<details><summary>Build the image with Buildkit</summary>
+<p>
+
+```bash
+DOCKER_BUILDKIT=1 docker build -t orca .
+```
+
+</p>
+</details>
+
+<details><summary>Explore the image layers</summary>
 
 https://github.com/wagoodman/dive
 
@@ -51,6 +61,8 @@ docker run --rm -it \
 
 </p>
 </details>
+
+## Challenge: Compose
 
 <details><summary>Composerize</summary>
 <p>

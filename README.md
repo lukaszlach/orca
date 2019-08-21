@@ -14,8 +14,8 @@ cd orca/
 <p>
 
 ```bash
-# Install Docker 18.09
-curl -fsSL https://get.docker.com | VERSION=18.09 CHANNEL=stable sh
+# Install Docker 19.03
+curl -fsSL https://get.docker.com | VERSION=19.03 CHANNEL=stable sh
 
 # Install Docker under your $HOME as a non-root
 curl -fsSL https://get.docker.com/rootless | sh
@@ -46,20 +46,6 @@ $ curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/
 </p>
 </details>
 
-<details><summary>Enter Linux virtual machine</summary>
-<p>
-
-```bash
-# Windows and Mac
-$ docker run -it --rm --privileged --pid=host justincormack/nsenter1
-
-# Mac
-$ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
-```
-
-</p>
-</details>
-
 <details><summary>Start Orca Tunnel</summary>
 <p>
 
@@ -76,6 +62,10 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://lach.dev/orca-tun
 </details>
 
 ## Workshop
+
+### Beginner
+
+* [Training](docs/TRAINING.md)
 
 ### Intermediate
 

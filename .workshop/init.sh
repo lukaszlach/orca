@@ -72,14 +72,16 @@ docker_pull() {
 docker_pull golang:1.12-alpine
 docker_pull alpine:3.9
 docker_pull mysql:5.7
-docker_pull bretfisher/netshoot
+docker_pull nicolaka/netshoot
 docker_pull tecnativa/tcp-proxy
 docker_pull registry:2
 docker_pull lukaszlach/confsubst
 docker_pull subfuzion/envtpl
 docker_pull moncho/dry
+docker_pull lazyteam/lazydocker
 docker_pull portainer/portainer
 docker_pull hadolint/hadolint
+docker_pull goodwithtech/dockle
 docker_pull wagoodman/dive
 docker_pull lukaszlach/composerize
 docker_pull lukaszlach/docker-tc
@@ -87,7 +89,7 @@ docker_pull lukaszlach/orca-gitlab
 docker_pull lukaszlach/orca-gitlab-runner
 docker_pull docker:stable
 docker_pull nginx:1.15
-#docker_pull lukaszlach/kali-desktop:xfce-top10
+docker_pull lukaszlach/kali-desktop:xfce-top10
 log_success "Pulled all Docker images"
 
 printf "\n"

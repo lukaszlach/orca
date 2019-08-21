@@ -98,6 +98,8 @@ RUN apk --no-cache add ca-certificates && \
     echo "No vulnerabilities found"
 ```
 
+> In case you have not received your own access token on e-mail yet, use the token `MTdmYmM5ODg1NmM?` (ask for the replacement for the last "?" character)
+
 </p>
 </details>
 

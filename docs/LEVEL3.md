@@ -5,10 +5,10 @@
 <details><summary>Run ngrep in container network mode</summary>
 <p>
 
-https://hub.docker.com/r/bretfisher/netshoot/
+https://hub.docker.com/r/nicolaka/netshoot/
 
 ```bash
-docker run -it --net container:orca bretfisher/netshoot \
+docker run -it --net container:orca nicolaka/netshoot \
     ngrep -d eth0 -x -q
 ```
 
@@ -48,7 +48,7 @@ docker run --pid container:orca --cap-add SYS_PTRACE \
 </p>
 </details>
 
-<details><summary>Kali Linux</summary>
+<details><summary>Kali Linux desktop in Docker</summary>
 <p>
 
 https://github.com/lukaszlach/kali-desktop
@@ -223,18 +223,21 @@ docker inspect -f \
 </p>
 </details>
 
-<details><summary>Inspect container without Docker client</summary>
+<details><summary>Check containers resource usage</summary>
 <p>
 
 ```bash
-curl -sSf --unix-socket /var/run/docker.sock \
-    0/containers/orca/json
+docker stats
+```
+
+```bash
+docker stats --no-stream --format '{{.Name}}\t{{.CPUPerc}}'
 ```
 
 </p>
 </details>
 
-<details><summary>Container PID mode</summary>
+<details><summary>Run htop and strace in container PID mode</summary>
 <p>
 
 https://hub.docker.com/r/lukaszlach/htop
@@ -263,6 +266,20 @@ https://github.com/moncho/dry
 docker run -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
     moncho/dry
+```
+
+</p>
+</details>
+
+<details><summary>lazydocker</summary>
+<p>
+
+https://github.com/jesseduffield/lazydocker
+
+```bash
+docker run -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    lazyteam/lazydocker
 ```
 
 </p>
@@ -323,6 +340,20 @@ https://github.com/hadolint/hadolint
 
 ```bash
 docker run -i hadolint/hadolint < Dockerfile
+```
+
+</p>
+</details>
+
+<details><summary>dockle</summary>
+<p>
+
+https://github.com/goodwithtech/dockle
+
+```bash
+docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    goodwithtech/dockle orca
 ```
 
 </p>
