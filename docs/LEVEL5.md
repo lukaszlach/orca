@@ -11,7 +11,7 @@ RUN apk -U add curl bash && \
     curl -sSfL https://i.jpillora.com/webproc | bash
 
 FROM orca AS orca-dev
-CMD ["/webproc", "--port", "8081", "--config", "/etc/orca.conf", "--", "su-exec", "orca", "sh", "/start.sh"]
+CMD ["/webproc", "-p", "8081", "-c", "/etc/orca.conf", "--", "su-exec", "orca", "sh", "/start.sh"]
 EXPOSE 8081/tcp
 COPY --from=orca-deps /webproc /webproc
 ```
