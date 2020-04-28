@@ -57,7 +57,7 @@ docker run --rm --name kind -it \
     --privileged \
     -p 8443:8443 -p 10080:10080 \
     -p 8080:30080 \
-    bsycorp/kind:latest-1.15
+    bsycorp/kind:v1.15.6
 ```
 
 </p>
