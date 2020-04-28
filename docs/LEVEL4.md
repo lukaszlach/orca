@@ -78,6 +78,17 @@ build:
 </p>
 </details>
 
+<details><summary>Add an insecure registry</summary>
+<p>
+
+```bash
+sudo echo '{"insecure-registries":["registry.vpsX.cmd.cat:8000"]}' > /etc/docker/daemon.json
+sudo kill -HUP $(pidof dockerd)
+```
+
+</p>
+</details>
+
 ## Challenge: Release
 
 <details><summary>.gitlab-ci.yml - Binary</summary>
