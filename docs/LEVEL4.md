@@ -82,7 +82,7 @@ build:
 <p>
 
 ```bash
-sudo echo '{"insecure-registries":["registry.vpsX.cmd.cat:8000"]}' > /etc/docker/daemon.json
+sudo echo '{"insecure-registries":["registry.local.cmd.cat:8000"]}' > /etc/docker/daemon.json
 sudo kill -HUP $(pidof dockerd)
 ```
 
