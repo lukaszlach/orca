@@ -17,20 +17,19 @@ docker run -d --name gitlab \
     lukaszlach/orca-gitlab
 ```
 
-Run on a workshop VPS server (replace `XX` with your server number).
-
-**Notice**: Change `local` to `vpsXX` in all further code snippets if needed.
+Run on a workshop VPS server (replace `X` with your server number).
 
 ```bash
 docker network create orca-gitlab-network
 docker run -d --name gitlab \
     --net orca-gitlab-network -p 8000:8000 \
-    --network-alias gitlab.vpsXX.cmd.cat \
-    --network-alias registry.vpsXX.cmd.cat \
-    -e "GITLAB_DOMAIN=vpsXX.cmd.cat" \
+    --network-alias gitlab.vpsX.cmd.cat \
+    --network-alias registry.vpsX.cmd.cat \
+    -e "GITLAB_DOMAIN=vpsX.cmd.cat" \
     lukaszlach/orca-gitlab
 ```
 
+**Notice**: Change `local` to `vpsX` (replace `X` with your server number) in all further code snippets if needed.
 
 </p>
 </details>
