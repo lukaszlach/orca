@@ -56,6 +56,11 @@ docker run -d --name gitlab-runner \
 git remote add local http://gitlab.local.cmd.cat:8000/root/orca.git
 ```
 
+```bash
+git config --global user.name "Docker Workshop"
+git config --global user.email workshop@docker.com
+```
+
 </p>
 </details>
 
