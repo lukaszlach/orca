@@ -42,7 +42,8 @@ fi
 DOCKER_COMPOSE_VERSION=$(docker-compose -v)
 if [[ "$DOCKER_COMPOSE_VERSION" == *"version 1.22."* ]] || \
     [[ "$DOCKER_COMPOSE_VERSION" == *"version 1.23."* ]] || \
-    [[ "$DOCKER_COMPOSE_VERSION" == *"version 1.24."* ]]; then
+    [[ "$DOCKER_COMPOSE_VERSION" == *"version 1.24."* ]] || \
+    [[ "$DOCKER_COMPOSE_VERSION" == *"version 1.25."* ]]; then
     log_success "Running on supported Compose version"
     log "$DOCKER_COMPOSE_VERSION"
 else
