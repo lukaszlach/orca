@@ -353,7 +353,7 @@ https://github.com/goodwithtech/dockle
 ```bash
 docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    goodwithtech/dockle orca
+    goodwithtech/dockle lukaszlach/orca
 ```
 
 </p>
