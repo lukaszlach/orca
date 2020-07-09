@@ -22,6 +22,7 @@ Run on a workshop VPS server (replace `X` with your server number).
 ```bash
 docker network create orca-gitlab-network
 docker run -d --name gitlab \
+    --memory="3g" --cpus="1" \
     --net orca-gitlab-network -p 8000:8000 \
     --network-alias gitlab.vpsX.cmd.cat \
     --network-alias registry.vpsX.cmd.cat \
