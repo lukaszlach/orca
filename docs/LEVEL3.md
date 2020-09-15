@@ -204,7 +204,7 @@ docker inspect \
 
 ```bash
 docker inspect \
-    --format '{{range .Mounts}}{{ .Source }}{{end}}' orca
+    --format '{{ range .Mounts }}{{ .Source }}{{end}}' orca
 ```
 
 </p>
@@ -244,28 +244,14 @@ https://hub.docker.com/r/lukaszlach/htop
 
 ```bash
 docker run -it --pid container:orca \
-    lukaszlach/htop
+    cmd.cat/htop htop
 ```
 
 https://hub.docker.com/r/lukaszlach/strace
 
 ```bash
 docker run --pid container:orca --cap-add SYS_PTRACE \
-    lukaszlach/strace -s 1024 -f -p 1
-```
-
-</p>
-</details>
-
-<details><summary>dry</summary>
-<p>
-
-https://github.com/moncho/dry
-
-```bash
-docker run -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    moncho/dry
+    cmd.cat/strace strace -s 1024 -f -p 1
 ```
 
 </p>
