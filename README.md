@@ -46,6 +46,20 @@ $ curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/
 </p>
 </details>
 
+<details><summary>Connect to the workshop VPS</summary>
+<p>
+
+```bash
+ssh -p 6667 d@vpsX.cmd.cat
+```
+
+```bash
+ssh -p 6667 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null d@vpsX.cmd.cat
+```
+
+</p>
+</details>
+
 <details><summary>Start Orca Tunnel</summary>
 <p>
 
