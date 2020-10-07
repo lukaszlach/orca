@@ -71,6 +71,8 @@ Run the tunnel with automated scripts or manually using Docker **on your laptop/
 When the tunnel is running you can access all workshop services running on your VPS by using `localhost`. 
 In this case you can also access your VPS shell on `http://localhost:8022`.
 
+> If you do not have Docker installed on your PC/laptop [see how to configure port forwarding](https://docs.bitnami.com/bch/faq/get-started/access-ssh-tunnel/) using PuTTy and terminal SSH client on MacOS and Linux.
+
 Start using the automated script:
 
 ```bash
