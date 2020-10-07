@@ -76,9 +76,8 @@ In this case you can also access your VPS shell on `http://localhost:8022` and V
 Start using the automated script:
 
 ```bash
-# Linux and Mac
-# replace with your VPS_ID
-bash <(curl -sSfL lach.dev/orca-tunnel) VPS_ID
+# Mac and Linux
+bash <(curl -sSfL lach.dev/orca-tunnel)
 
 # Windows
 iex ((New-Object System.Net.WebClient).DownloadString('https://lach.dev/orca-tunnel.ps'))
