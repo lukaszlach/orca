@@ -69,6 +69,8 @@ Run the tunnel with automated scripts or manually using Docker.
 When the tunnel is running you can access all workshop services running on your VPS by using `localhost` on your laptop/PC. 
 In this case you can also access your VPS shell on `http://localhost:8022`.
 
+Start using the automated script:
+
 ```bash
 # Linux and Mac
 # replace with your VPS_ID
@@ -78,7 +80,7 @@ bash <(curl -sSfL lach.dev/orca-tunnel) VPS_ID
 iex ((New-Object System.Net.WebClient).DownloadString('https://lach.dev/orca-tunnel.ps'))
 ```
 
-Run manually with Docker:
+Start manually with Docker:
 
 ```bash
 docker run -d --name orca-tunnel \
