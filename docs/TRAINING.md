@@ -31,7 +31,7 @@ docker-compose up
 <p>
 
 ```bash
-socat -d -d -t100 \
+sudo socat -d -d -t100 \
    -lf /dev/stdout \
    -v UNIX-LISTEN:/var/run/docker.debug,mode=777,reuseaddr,fork \
       UNIX-CONNECT:/var/run/docker.sock
