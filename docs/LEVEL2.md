@@ -272,7 +272,13 @@ Display the configuration file name.
 jq -r '.[0].Config' < /tmp/orca/manifest.json
 ```
 
-Display formatted JSON for the application image history.
+Display the formatted configuration file.
+
+```bash
+jq '.' < /tmp/orca/$(jq -r '.[0].Config' < /tmp/orca/manifest.json)
+```
+
+Display formatted JSON for the image history.
 
 ```bash
 jq '.history' < /tmp/orca/$(jq -r '.[0].Config' < /tmp/orca/manifest.json)
