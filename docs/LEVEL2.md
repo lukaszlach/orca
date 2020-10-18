@@ -329,14 +329,14 @@ jq -r '.[0].Layers | .[]' < /tmp/orca/manifest.json | xargs -n1 -I{} tar -C /tmp
 <p>
 
 ```bash
-cd /tmp/orca-filesystem
+cd /tmp/orca/filesystem
 ./orca version
 ```
 
 Show details about the application binary.
 
 ```bash
-cd /tmp/orca-filesystem
+cd /tmp/orca/filesystem
 file orca
 ldd orca
 ```
