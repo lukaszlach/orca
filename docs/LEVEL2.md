@@ -230,3 +230,108 @@ docker run -d \
 
 </p>
 </details>
+
+
+## Challenge: Go deep
+
+<details><summary>Extract Docker image to a directory</summary>
+<p>
+
+```bash
+mkdir /tmp/orca
+docker save orca:latest | tar -C /tmp/orca/ -x
+```
+
+```bash
+find /tmp/orca
+```
+
+</p>
+</details>
+
+<details><summary>View the formatted manifest file</summary>
+<p>
+
+```bash
+jq '.' < /tmp/orca/manifest.json
+```
+
+</p>
+</details>
+
+<details><summary>View the configuration file</summary>
+<p>
+
+Display the configuration file name.
+
+```bash
+jq -r '.[0].Config' < /tmp/orca/manifest.json
+```
+
+Show the formatted JSON for the application image history.
+
+```bash
+jq '.history' < /tmp/orca/$(jq -r '.[0].Config' < /tmp/orca/manifest.json)
+```
+
+</p>
+</details>
+
+<details><summary>Extract the image layer to a directory</summary>
+<p>
+
+Display the selected layer archive file.
+
+```bash
+jq -r '.[0].Layers[1]' < /tmp/orca/manifest.json
+```
+
+Extract the layer archive to the `/tmp/orca/layer` directory:
+
+```bash
+mkdir /tmp/orca/layer
+tar -C /tmp/orca/layer -xf /tmp/orca/$(jq -r '.[0].Layers[1]' < /tmp/orca/manifest.json)
+```
+
+</p>
+</details>
+
+<details><summary>Explore the image filesystem</summary>
+<p>
+
+Display all image layers in order.
+
+```bash
+jq -r '.[0].Layers
+```
+
+Extract all the layers to the `/tmp/orca/filesystem` directory.
+
+```bash
+mkdir /tmp/orca/filesystem
+cd /tmp/orca/filesystem
+jq -r '.[0].Layers | .[]' < /tmp/orca/manifest.json | xargs -n1 -I{} tar xvf "/tmp/orca/{}"
+```
+
+</p>
+</details>
+
+<details><summary>Run the application on the host system</summary>
+<p>
+
+Show details about the application binary.
+
+```bash
+cd /tmp/orca-filesystem
+file orca
+ldd orca
+```
+
+Install required dependencies.
+
+```bash
+sudo apt-get install -y musl
+```
+
+</p>
+</details>
