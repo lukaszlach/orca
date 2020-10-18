@@ -237,6 +237,8 @@ docker run -d \
 <details><summary>Extract Docker image to a directory</summary>
 <p>
 
+Extract the image contents to the `/tmp/orca` directory.
+
 ```bash
 mkdir /tmp/orca
 docker save orca:latest | tar -C /tmp/orca/ -x
@@ -251,6 +253,8 @@ find /tmp/orca
 
 <details><summary>View the formatted manifest file</summary>
 <p>
+
+Display formatted JSON of the image manifest.
 
 ```bash
 jq '.' < /tmp/orca/manifest.json
@@ -268,7 +272,7 @@ Display the configuration file name.
 jq -r '.[0].Config' < /tmp/orca/manifest.json
 ```
 
-Show the formatted JSON for the application image history.
+Display formatted JSON for the application image history.
 
 ```bash
 jq '.history' < /tmp/orca/$(jq -r '.[0].Config' < /tmp/orca/manifest.json)
@@ -318,6 +322,11 @@ jq -r '.[0].Layers | .[]' < /tmp/orca/manifest.json | xargs -n1 -I{} tar xvf "/t
 
 <details><summary>Run the application on the host system</summary>
 <p>
+
+```bash
+cd /tmp/orca-filesystem
+./orca version
+```
 
 Show details about the application binary.
 
