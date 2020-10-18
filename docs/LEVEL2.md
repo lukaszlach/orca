@@ -241,11 +241,11 @@ Extract the image contents to the `/tmp/orca` directory.
 
 ```bash
 mkdir /tmp/orca
-docker save orca:latest | tar -C /tmp/orca/ -x
+docker save orca:latest | tar -C /tmp/orca/ -xv
 ```
 
 ```bash
-find /tmp/orca
+ls -lach /tmp/orca
 ```
 
 </p>
@@ -294,7 +294,7 @@ Extract the layer archive to the `/tmp/orca/layer` directory:
 
 ```bash
 mkdir /tmp/orca/layer
-tar -C /tmp/orca/layer -xf /tmp/orca/$(jq -r '.[0].Layers[1]' < /tmp/orca/manifest.json)
+tar -C /tmp/orca/layer -xvf /tmp/orca/$(jq -r '.[0].Layers[1]' < /tmp/orca/manifest.json)
 ```
 
 </p>
@@ -313,8 +313,7 @@ Extract all the layers to the `/tmp/orca/filesystem` directory.
 
 ```bash
 mkdir /tmp/orca/filesystem
-cd /tmp/orca/filesystem
-jq -r '.[0].Layers | .[]' < /tmp/orca/manifest.json | xargs -n1 -I{} tar xvf "/tmp/orca/{}"
+jq -r '.[0].Layers | .[]' < /tmp/orca/manifest.json | xargs -n1 -I{} tar -C /tmp/orca/filesystem -xvf "/tmp/orca/{}"
 ```
 
 </p>
