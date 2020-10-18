@@ -312,7 +312,7 @@ tar -C /tmp/orca/layer -xvf /tmp/orca/$(jq -r '.[0].Layers[1]' < /tmp/orca/manif
 Display all image layers in order.
 
 ```bash
-jq -r '.[0].Layers
+jq -r '.[0].Layers' < /tmp/orca/manifest.json
 ```
 
 Extract all the layers to the `/tmp/orca/filesystem` directory.
