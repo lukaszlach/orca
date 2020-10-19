@@ -188,7 +188,7 @@ export ORCA_PID=$(docker inspect -f '{{.State.Pid}}' orca)
 ```
 
 ```bash
-# Network
+# Network (with host tools)
 sudo nsenter -t $ORCA_PID -n ngrep -d eth0
 ```
 
@@ -200,7 +200,7 @@ sudo nsenter -t $ORCA_PID -m ps aux
 ```bash
 # Filesystem (only container)
 sudo nsenter -t $ORCA_PID -m ls /
-# Filesystem (both container and host)
+# Filesystem (both container and host filesystems and host tools)
 sudo ls -la /proc/${ORCA_PID}/root/
 ```
 
