@@ -22,7 +22,7 @@ ls -lach /tmp/orca
 <details><summary>View the formatted manifest file</summary>
 <p>
 
-Display formatted JSON of the image manifest.
+Display formatted JSON of the image manifest using [JQ](https://stedolan.github.io/jq/).
 
 ```bash
 jq '.' < /tmp/orca/manifest.json
@@ -189,19 +189,19 @@ export ORCA_PID=$(docker inspect -f '{{.State.Pid}}' orca)
 
 ```bash
 # Network
-$ sudo nsenter -t $ORCA_PID -n ngrep -d eth0
+sudo nsenter -t $ORCA_PID -n ngrep -d eth0
 ```
 
 ```bash
 # Process
-$ sudo nsenter -t $ORCA_PID -m ps aux
+sudo nsenter -t $ORCA_PID -m ps aux
 ```
 
 ```bash
 # Filesystem (only container)
-$ sudo nsenter -t $ORCA_PID -m ls /
+sudo nsenter -t $ORCA_PID -m ls /
 # Filesystem (both container and host)
-$ sudo ls -la /proc/${ORCA_PID}/root/
+sudo ls -la /proc/${ORCA_PID}/root/
 ```
 
 </p>
