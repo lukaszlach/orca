@@ -180,7 +180,7 @@ sudo cntr attach orca
 </p>
 </details>
 
-<details><summary>Run host tools on a container</summary>
+<details><summary>Container namespaces</summary>
 <p>
 
 ```bash
@@ -202,6 +202,11 @@ sudo nsenter -t $ORCA_PID -m ps aux
 sudo nsenter -t $ORCA_PID -m ls /
 # Filesystem (both container and host)
 sudo ls -la /proc/${ORCA_PID}/root/
+```
+
+```bash
+# Shell access
+sudo nsenter -t $ORCA_PID -n -p -m -u -i sh
 ```
 
 </p>
