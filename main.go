@@ -1,12 +1,13 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
-	"os"
-	"strconv"
 	"io/ioutil"
 	"net/http"
-	"database/sql"
+	"os"
+	"strconv"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -15,6 +16,7 @@ const OutputLog = "/tmp/orca.log"
 const ErrorLog = "/tmp/orca-error.log"
 
 var recordsCount = 0
+var db *sql.DB
 
 func fileLog(line string, path string) error {
 	_, err := os.Readlink(path)
@@ -34,16 +36,23 @@ func fileLog(line string, path string) error {
 }
 
 func main() {
-    if os.Args[1] == "version" {
-        fmt.Println("Orca 1.0")
-        os.Exit(0)
-        return
-    }
+	if os.Args[1] == "version" {
+		fmt.Println("Orca 1.0")
+		os.Exit(0)
+		return
+	}
+	// connect to MySQL server
+	db, err := sql.Open("mysql", "root:"+DbPassword+"@tcp("+os.Getenv("ORCA_MYSQL")+")/")
+	if err != nil {
+		os.Exit(7)
+		return
+	}
+	defer db.Close()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// log the request
 		fileLog(r.Method+" /", OutputLog)
 		// cache the response output (mock)
-		os.MkdirAll("/tmp/orca", 0777);
+		os.MkdirAll("/tmp/orca", 0777)
 		file, err := ioutil.TempFile("/tmp/orca", "orca")
 		if err != nil {
 			//panic(err)
@@ -51,6 +60,7 @@ func main() {
 			bigBuff := make([]byte, 1000*1000)
 			ioutil.WriteFile(file.Name(), bigBuff, 0666)
 		}
+		defer file.Close()
 		// include server hostname in the Server response header
 		host, _ := os.Hostname()
 		w.Header().Set("Server", "orca (running on "+host+")")
@@ -64,20 +74,15 @@ func main() {
 				os.Exit(7)
 				return
 			}
-			// connect to MySQL server
-			db, err := sql.Open("mysql", "root:"+DbPassword+"@tcp("+os.Getenv("ORCA_MYSQL")+")/")
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				os.Exit(7)
-				return
-			}
 			// store the record in MySQL (mock)
-			_, err = db.Query("SELECT 1")
+			rows, err := db.Query("SELECT 1")
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
+				fileLog("Query: "+err.Error(), ErrorLog)
 				os.Exit(7)
 				return
 			}
+			defer rows.Close()
 			recordsCount++
 			w.Header().Set("Content-Type", "application/json")
 			fmt.Fprint(w, "{\"count\":"+strconv.Itoa(recordsCount)+"}")
@@ -90,8 +95,7 @@ func main() {
 	// trigger a warning when no MySQL connection details are available
 	if os.Getenv("ORCA_MYSQL") == "" {
 		fileLog("Warning: Failed to connect to MySQL (ORCA_MYSQL empty or not set)", OutputLog)
-	} else
-	if _, err := os.Stat("/etc/orca.conf"); os.IsNotExist(err) {
+	} else if _, err := os.Stat("/etc/orca.conf"); os.IsNotExist(err) {
 		fileLog("Warning: /etc/orca.conf not found, set the \"orca_cache\" setting to enable local caching", OutputLog)
 	}
 	// run HTTP server loop
