@@ -87,19 +87,6 @@ docker exec kind docker images orca
 </p>
 </details>
 
-<details><summary>kompose</summary>
-<p>
-
-https://github.com/kubernetes/kompose
-
-```bash
-cat docker-compose.yml | \
-    docker run --rm -i lukaszlach/kompose -f - -o - convert
-```
-
-</p>
-</details>
-
 <details><summary>orca-k8s.yml</summary>
 <p>
 
