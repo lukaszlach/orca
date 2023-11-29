@@ -57,7 +57,7 @@ docker run --rm --name kind -it \
     --privileged \
     -p 8443:8443 -p 10080:10080 \
     -p 8080:30080 \
-    bsycorp/kind:v1.15.6
+    bsycorp/kind:latest-1.23
 ```
 
 </p>
@@ -81,7 +81,7 @@ docker save orca | docker exec -i kind docker load
 ```
 
 ```bash
-docker exec kind docker images | grep orca
+docker exec kind docker images orca
 ```
 
 </p>
@@ -151,7 +151,14 @@ spec:
 
 ```bash
 docker cp orca-k8s.yml kind:/
-docker exec -it kind kubectl apply -f /orca-k8s.yml
+```
+
+```bash
+docker exec kind kubectl apply -f /orca-k8s.yml
+```
+
+```bash
+docker exec kind kubectl get all
 ```
 
 </p>
