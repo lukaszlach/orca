@@ -164,6 +164,16 @@ docker exec kind kubectl get all
 </p>
 </details>
 
+<details><summary>Stop Kubernetes</summary>
+<p>
+
+```bash
+docker rm -f kind
+```
+
+</p>
+</details>
+
 ## Challenge: Prepare for chaos
 
 <details><summary>Run Docker Traffic Control daemon</summary>
