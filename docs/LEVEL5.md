@@ -41,6 +41,9 @@ file:
     exists: true
     filetype: file
     mode: "0755"
+  /etc/orca.conf:
+    exists: true
+    filetype: file
 
 command:
   "/orca version":
