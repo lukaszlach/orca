@@ -68,37 +68,22 @@ RUN apk --no-cache add curl && \
 
 ## Challenge: Security scan
 
-<details><summary>Get the access token</summary>
+<details><summary>Scan any Docker image</summary>
 <p>
 
 ```bash
-docker run --rm -it aquasec/microscanner \
-    --register your@email.com
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image alpine:3.9
 ```
 
 </p>
 </details>
 
-<details><summary>Dockerfile.ci</summary>
+<details><summary>Scan any project</summary>
 <p>
 
-```Dockerfile
-FROM orca AS structure-test
-COPY goss.yaml goss.yaml
-RUN apk --no-cache add curl && \
-    curl -fsSL https://goss.rocks/install | sh && \
-    goss validate && \
-    echo "Structure test successful"
-
-FROM orca AS security-test
-ADD https://get.aquasec.com/microscanner .
-RUN apk --no-cache add ca-certificates && \
-    chmod +x ./microscanner && \
-    ./microscanner YourAccessToken && \
-    echo "No vulnerabilities found"
+```bash
+docker run --rm -it -v $PWD:/app aquasec/trivy fs /app
 ```
-
-> In case you have not received your own access token on e-mail yet, use the token `MTdmYmM5ODg1NmM?` (ask for the replacement for the last "?" character)
 
 </p>
 </details>
