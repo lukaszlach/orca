@@ -54,6 +54,17 @@ command:
 </p>
 </details>
 
+<details><summary>Run tests using an inline shell script</summary>
+<p>
+
+```bash
+docker run --rm -v $PWD:/app orca \
+    sh -c 'apk add curl && curl -fsSL https://goss.rocks/install | sh && cp -f /app/goss.yaml . && goss validate'
+```
+
+</p>
+</details>
+
 <details><summary>Dockerfile.ci</summary>
 <p>
 
