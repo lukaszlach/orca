@@ -71,11 +71,11 @@ RUN apk --no-cache add curl && \
 <details><summary>Scan any Docker image</summary>
 <p>
 
+https://github.com/aquasecurity/trivy
+
 ```bash
 docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image alpine:3.9
 ```
-
-https://github.com/aquasecurity/trivy
 
 </p>
 </details>
